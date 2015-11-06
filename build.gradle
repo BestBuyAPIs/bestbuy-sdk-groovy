@@ -1,0 +1,42 @@
+group 'bestBuy'
+version '0.1'
+
+apply plugin: 'groovy'
+apply plugin:'application'
+
+mainClassName = "com.bestbuy.sdk.Examples"
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    groovyDoc
+}
+
+dependencies {
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+    compile 'org.codehaus.groovy:groovy-all:2.3.11'
+    compile 'log4j:log4j:1.2.17'
+
+    // Test Libraries
+    testCompile "junit:junit:4.11"
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+    testCompile "cglib:cglib:2.2"
+    testCompile "org.objenesis:objenesis:1.2"
+
+    // Groovy Docs
+    groovyDoc 'org.codehaus.groovy:groovy-groovydoc:2.3.3'
+    groovyDoc 'org.codehaus.groovy:groovy-ant:2.3.3'
+
+}
+
+run {
+    if (project.hasProperty("exampleArgs")) {
+        args exampleArgs
+    }
+}
+
+groovydoc {
+    groovyClasspath = configurations.groovyDoc
+}
