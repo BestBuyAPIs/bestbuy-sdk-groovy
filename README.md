@@ -1,7 +1,6 @@
 # Best Buy API Groovy SDK
 This library allows easy access to Best Buy API. 
-To use this library you will need an API KEY, which you can get from BestBuy's site.  
-You can find complete documentation at [Best Buy Developer's site](https://developer.bestbuy.com/documentation)
+To use this library you will need an API KEY, which you can get from BestBuy's site. You can find complete documentation at [Best Buy Developer's site](https://developer.bestbuy.com/documentation)
 
 ## Usage
 This library is a gradle project, and all commands described below can be executed by just using the gradle script included in the root directory: gradlew (or gradlew.bat in Win).
@@ -56,17 +55,21 @@ If not, just provide it as an argument(e.g. 'myApiKeyValue':
 ```
 ./gradlew run -PexampleArgs=apiKey:myApiKeyValue
 ```
- 
-### Running tests
-The spock tests can be executed by gradle's 'test' task:
 
-```
-./gradlew test
-```
+## Documentation
 
 ### Generating Groovy Doc
 Complete Groovy Doc for the library can be generated with 'groovyDoc' 
 
 ```
 ./gradlew groovyDoc
+```
+
+## Testing
+ 
+### Running tests
+The spock tests can be executed by gradle's 'test' task:
+
+```
+./gradlew test
 ```
