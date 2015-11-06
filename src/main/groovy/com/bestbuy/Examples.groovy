@@ -8,7 +8,7 @@ class Examples {
 
     static void main(String[] args) {
         println 'START APP:  ' + args
-        def apiKeyArgumentPrefix = "apiKey="
+        def apiKeyArgumentPrefix = "apiKey:"
         BestBuyClient bby
         if (args?.count{it.startsWith(apiKeyArgumentPrefix)}>0) {
             bby = new BestBuyClient(args.find{it.startsWith(apiKeyArgumentPrefix)}.split(apiKeyArgumentPrefix)[1])
