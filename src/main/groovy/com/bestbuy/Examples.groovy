@@ -1,9 +1,9 @@
 package com.bestbuy.sdk
 import com.bestbuy.sdk.api.BestBuyClient
-/**
- * Created by tarmac on 10/23/15.
- */
 
+/**
+ * BestBuyClient class examples for all methods, with queries examples.
+ */
 class Examples {
 
     static void main(String[] args) {
