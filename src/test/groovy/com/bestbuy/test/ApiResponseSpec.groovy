@@ -16,7 +16,7 @@ class ApiResponseSpec extends Specification {
     def "Constructor with valid response object"() {
         when: "Http response is successful and returns JSON data "
             def response = Mock(HttpResponseDecorator)
-            response.data >> '{"sku": 3444, "name": "test"}'
+            response.data >> ["sku": 3444, "name": "test"]
             response.status >> 200
             def apiResponse = new ApiResponse(response)
         then: "object parses received data and allows to access JSON as Map"
