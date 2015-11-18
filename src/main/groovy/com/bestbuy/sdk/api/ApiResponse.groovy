@@ -15,14 +15,13 @@ class ApiResponse {
      *
      * @param response An HttpResponseDecorator must be provided
      */
-    ApiResponse(HttpResponseDecorator response){
+    ApiResponse(HttpResponseDecorator response) {
         if (!response) throw new NullPointerException("Response provided is null")
         httpResponse = response
-        // Try to parse response as a JSON to create Map. If response data is not JSON, set as null
-        try {
-            data = ((Map)(new JsonSlurper()).parseText(httpResponse.data))?.asImmutable()
-        } catch (Exception e) {
-            log.debug "Data parsed as JSON failed"
+        // API returns XML sometimes specially in errors (403, etc.)
+        // Data is set only if message from API is a valid JSON
+        if (httpResponse.data instanceof Map) {
+            data = httpResponse.data
         }
     }
 
@@ -35,7 +34,7 @@ class ApiResponse {
     }
 
     /**
-     * Get Received JSON data as a Map
+     * Get Received JSON data when status is 200
      * @return Map with JSON data
      */
     Map getData() {

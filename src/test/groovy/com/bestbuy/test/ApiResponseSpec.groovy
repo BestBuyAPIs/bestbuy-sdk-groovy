@@ -1,11 +1,7 @@
 package com.bestbuy.test
 
-import com.bestbuy.sdk.api.ApiConnector
 import com.bestbuy.sdk.api.ApiResponse
-import com.bestbuy.sdk.api.ClientConfiguration
 import groovyx.net.http.HttpResponseDecorator
-import org.apache.http.HttpResponse
-import org.apache.http.HttpStatus
 import spock.lang.Specification
 
 class ApiResponseSpec extends Specification {

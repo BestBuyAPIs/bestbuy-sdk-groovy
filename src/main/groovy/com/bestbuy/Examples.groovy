@@ -1,4 +1,5 @@
 package com.bestbuy.sdk
+
 import com.bestbuy.sdk.api.BestBuyClient
 
 /**
@@ -7,7 +8,6 @@ import com.bestbuy.sdk.api.BestBuyClient
 class Examples {
 
     static void main(String[] args) {
-        println 'START APP:  ' + args
         def apiKeyArgumentPrefix = "apiKey:"
         BestBuyClient bby
         if (args?.count{it.startsWith(apiKeyArgumentPrefix)}>0) {
@@ -26,7 +26,7 @@ class Examples {
     }
 
     static private productExamples(BestBuyClient bby) {
-        println "Product List -> HTTP code: ${bby.getProducts('')?.status}"
+        println "Product List -> HTTP code: ${bby.getProducts('')?.data}"
         println "Product List by description, showing SKU & NAME, with paging parameters -> HTTP code: ${bby.getProducts('(longDescription=iPhone*|sku=7619002)', [show:'sku,name', pageSize:15, page:5])?.status}"
         println "Product List by customer reviews, showing specific properties-> HTTP code: ${bby.getProducts('(customerReviewAverage>=4&customerReviewCount>100)', [show:'customerReviewAverage,customerReviewCount,name,sku'])?.status}"
         println "Product List -> HTTP code: ${bby.getProducts('(sku in(43900,2088495,7150065))')?.status}"
@@ -35,7 +35,7 @@ class Examples {
     }
 
     static private categoriesExamples(BestBuyClient bby) {
-        println "Categories List -> HTTP code: ${bby.getCategories('').status}"
+        println "Categories List -> HTTP code: ${bby.getCategories('').data}"
         println "Category By Id -> HTTP code:  ${bby.getCategories('(id=abcat0011000)').status}"
         println "Category By Name -> HTTP code:  ${bby.getCategories('(name=Leisure Gifts)').status}"
         println "Category Path By Name -> HTTP code:  ${bby.getCategories('(name=Sony DSLR Camera*)', [show: 'path']).status}"
@@ -44,14 +44,14 @@ class Examples {
     }
 
     static private reviewsExamples(BestBuyClient bby) {
-        println "Reviews List -> HTTP response code: ${bby.getReviews('').status}"
+        println "Reviews List -> HTTP response code: ${bby.getReviews('').data}"
         println "Reviews For specific SKU, showing id & sku -> HTTP response code: ${bby.getReviews('(sku=1780275)', [show:'id,sku']).status}"
         println "Reviews with rating higher than 4.0 -> HTTP response code: ${bby.getReviews('(rating>4.0)').status}"
         println "Reviews submitted on a specific date -> HTTP response code: ${bby.getReviews('(submissionTime=2014-04-29)').status}"
     }
 
     static private storesExamples(BestBuyClient bby) {
-        println "Stores List -> HTTP response code: ${bby.getStores('').status}"
+        println "Stores List -> HTTP response code: ${bby.getStores('').data}"
         println "Stores By Id -> HTTP response code: ${bby.getStores('(storeId=281)').status}"
         println "Stores In a city -> HTTP response code: ${bby.getStores('(city=San Juan)').status}"
         println "Stores within a zipcode -> HTTP response code: ${bby.getStores('(postalCode=55423)').status}"
@@ -62,18 +62,18 @@ class Examples {
     }
 
     static private storeAvailabilityExamples(BestBuyClient bby) {
-        println "Availability For store and product list -> HTTP response code: ${bby.getStores('(storeId=8042)', '(sku in (6461052,5909042))', [show:'storeId,storeType,name,city,region,products.name,products.sku,products']).status}"
+        println "Availability For store and product list -> HTTP response code: ${bby.getStores('(storeId=8042)', '(sku in (6461052,5909042))', [show:'storeId,storeType,name,city,region,products.name,products.sku,products']).data}"
         println "Express stores within a ten mile radius using a lat/long that have a SKU available -HTTP response code: ${bby.getStores('(area(44.882942,-93.2775,10)&storeType=Express)', '(sku=6461052)', [show:'storeId,storeType,city,region,name,products.name,products.sku,products']).status}"
     }
 
     static private openBoxExamples(BestBuyClient bby) {
-        println "Open Box List -> HTTP response code: ${bby.getOpenBoxProducts('').status}"
+        println "Open Box List -> HTTP response code: ${bby.getOpenBoxProducts('').data}"
         println "Open Box By Category -> HTTP response code: ${bby.getOpenBoxProducts('(categoryId=abcat0400000)').status}"
         println "Open Box By SKU in List -> HTTP response code: ${bby.getOpenBoxProducts('(sku in(5729048,7528703,4839357,8153056,8610161))').status}"
     }
 
     static private recommendationExamples(BestBuyClient bby) {
-        println "Trending Products List -> HTTP response code: ${bby.getRecommendations('trendingViewed', '').status}"
+        println "Trending Products List -> HTTP response code: ${bby.getRecommendations('trendingViewed', '').data}"
         println "Trending Products List by Category -> HTTP response code: ${bby.getRecommendations('trendingViewed', '(categoryId=abcat0400000)').status}"
         println "Most Viewed Products List -> HTTP response code: ${bby.getRecommendations('mostViewed', '').status}"
         println "Most Viewed Products List by Category -> HTTP response code: ${bby.getRecommendations('mostViewed', '(categoryId=abcat0107000)').status}"

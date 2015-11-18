@@ -49,7 +49,7 @@ class ApiConnector {
             log.debug "Status: ${response.status}"
             return new ApiResponse(response)
         } catch (groovyx.net.http.HttpResponseException ex) {
-            // HttpResponseExceptions are returned for 4xx and 5xx status, and HttpResponse is returned
+            // HttpResponseExceptions are returned for 4xx and 5xx status, and ApiResponse is returned
             log.debug "Error Status: $ex.response.status"
             return new ApiResponse(ex.response)
         } catch (Exception e) {

@@ -1,12 +1,6 @@
 package com.bestbuy.test
 
-import com.bestbuy.sdk.api.ApiConnector
 import com.bestbuy.sdk.api.ApiResponse
-import groovyx.net.http.HttpResponseDecorator
-
-/**
- * Created by tarmac on 11/3/15.
- */
 
 import spock.lang.*
 import com.bestbuy.sdk.api.BestBuyClient
