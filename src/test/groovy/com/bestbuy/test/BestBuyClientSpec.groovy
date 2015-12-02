@@ -25,36 +25,36 @@ class BestBuyClientSpec extends Specification {
 
 
     def "Constructor with default values, using Environment Variable API KEY"() {
-        when: "creating a BestBuyClient without parameters, and no environment variable"
+        when:
             ClientConfiguration.metaClass.static.getDefaultApiKey = { ->
                 // By returning null, we mock that environment variable is not set
                 null
             }
             new BestBuyClient()
-        then: "creation fails"
+        then:
             thrown IllegalArgumentException
-        when: "creating a BestBuyClient without parameters, and environment variable Set"
+        when:
             ClientConfiguration.metaClass.static.getDefaultApiKey = { ->
                 // Return a value as if environment variable is set
                 'testApi'
             }
             def bby = new BestBuyClient()
-        then: "API KEY is set with value from Environment Variable, and Urls with default values"
+        then:
             bby.API_KEY == ClientConfiguration.defaultApiKey
     }
 
     def "Constructor with provided API KEY"() {
-        when: "creating a BestBuyClient providing only API KEY"
+        when:
             def apiKey = 'myBestBuyApiKey'
             def bby = new BestBuyClient(apiKey)
-        then: "API KEY is set with value apiKey"
+        then:
             bby.API_KEY == apiKey
     }
 
    def "Constructor with null parameters"() {
-        when: "creating a BestBuyClient providing null values in one of the parameters"
+        when:
             new BestBuyClient(apiKey, baseUrl, baseBetaUrl)
-        then: "throws exception"
+        then:
             thrown IllegalArgumentException
         where:
             apiKey        | baseUrl               | baseBetaUrl
@@ -70,158 +70,158 @@ class BestBuyClientSpec extends Specification {
    def "Retrieving products"() {
        setup:
             def bby = new BestBuyClient()
-       when: "getting all products "
+       when:
             def response = bby.getProducts('', [:])
-       then: "an ApiResponse object is returned"
+       then:
             response instanceof ApiResponse
-       when: "getting products using query"
+       when:
             response = bby.getProducts('(sku=1234)')
-       then: "an ApiResponse object is returned"
+       then:
             response instanceof ApiResponse
-       when: "getting products using query"
+       when:
            response = bby.getProducts('(sku=1234)')
-       then: "an ApiResponse object is returned"
+       then:
            response instanceof ApiResponse
-       when: "getting products with extra parameters (pagination or others) "
+       when:
            response = bby.getProducts(null,[page:4])
-       then: "an ApiResponse object is returned"
+       then:
            response instanceof ApiResponse
-       when: "getting products with query & extra parameters (pagination or others) "
+       when:
            response = bby.getProducts('(category=someCategory)',[page:2])
-       then: "an ApiResponse object is returned"
+       then:
            response instanceof ApiResponse
    }
 
     def "Retrieving categories"() {
         setup:
             def bby = new BestBuyClient()
-        when: "getting all categories "
+        when:
             def response = bby.getCategories('', [:])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "using query"
+        when:
             response = bby.getCategories('(sku=1234)')
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "using query"
+        when:
             response = bby.getCategories('(sku=1234)')
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with extra parameters (pagination or others) "
+        when:
             response = bby.getCategories(null,[page:4])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with query & extra parameters (pagination or others) "
+        when:
             response = bby.getCategories('(property=someProperty)',[page:2])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
     }
 
     def "Retrieving reviews"() {
         setup:
-        def bby = new BestBuyClient()
-        when: "getting all reviews "
-        def response = bby.getReviews('', [:])
-        then: "an ApiResponse object is returned"
-        response instanceof ApiResponse
-        when: "using query"
-        response = bby.getReviews('(property=someValue)')
-        then: "an ApiResponse object is returned"
-        response instanceof ApiResponse
-        when: "using query"
-        response = bby.getReviews('(sku=1234)')
-        then: "an ApiResponse object is returned"
-        response instanceof ApiResponse
-        when: "with extra parameters (pagination or others) "
-        response = bby.getReviews(null,[page:4])
-        then: "an ApiResponse object is returned"
-        response instanceof ApiResponse
-        when: "with query & extra parameters (pagination or others) "
-        response = bby.getReviews('(property=someValue)',[page:2])
-        then: "an ApiResponse object is returned"
-        response instanceof ApiResponse
+            def bby = new BestBuyClient()
+        when:
+            def response = bby.getReviews('', [:])
+        then:
+            response instanceof ApiResponse
+        when:
+            response = bby.getReviews('(property=someValue)')
+        then:
+            response instanceof ApiResponse
+        when:
+            response = bby.getReviews('(sku=1234)')
+        then:
+            response instanceof ApiResponse
+        when:
+            response = bby.getReviews(null,[page:4])
+        then:
+            response instanceof ApiResponse
+        when:
+            response = bby.getReviews('(property=someValue)',[page:2])
+        then:
+            response instanceof ApiResponse
     }
 
     def "Retrieving Stores"() {
         setup:
             def bby = new BestBuyClient()
-        when: "getting all  "
+        when:
             def response = bby.getStores('', [:])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "using query"
+        when:
             response = bby.getStores('(property=someValue)')
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "using query"
+        when:
             response = bby.getStores('(property=someValue)')
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with extra parameters (pagination or others) "
+        when:
             response = bby.getStores(null,[page:4])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with query & extra parameters (pagination or others) "
+        when:
             response = bby.getStores('(property=someValue)',[page:2])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with stores&product queries as well as extra parameters (pagination or others) "
+        when:
             response = bby.getStores('(property=someValue)', '(productProperty=someOtherValue)',[page:2])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
     }
 
     def "Retrieving openBox Products"() {
         setup:
             def bby = new BestBuyClient()
-        when: "getting all openBox "
+        when:
             def response = bby.getOpenBoxProducts('', [:])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "using query"
+        when:
             response = bby.getOpenBoxProducts('(property=someValue)')
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "using query"
+        when:
             response = bby.getOpenBoxProducts('(sku=1234)')
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with extra parameters (pagination or others) "
+        when:
             response = bby.getOpenBoxProducts(null,[page:4])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with query & extra parameters (pagination or others) "
+        when:
             response = bby.getOpenBoxProducts('(property=someValue)',[page:2])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
     }
 
     def "Retrieving Recommendations"() {
         setup:
             def bby = new BestBuyClient()
-        when: "getting all recommendations"
+        when:
             def response = bby.getRecommendations('trendingViewed','', [:])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "using query"
+        when:
             response = bby.getRecommendations('trendingViewed','(property=someValue)')
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "using query"
+        when:
             response = bby.getRecommendations('trendingViewed','(property=someValue)')
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with extra parameters (pagination or others) "
+        when:
             response = bby.getRecommendations('trendingViewed',null,[page:4])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with query & extra parameters (pagination or others) "
+        when:
             response = bby.getRecommendations('trendingViewed','(property=someValue)',[page:2])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
-        when: "with sku Filter & queries & extra parameters (pagination or others) "
+        when:
             response = bby.getRecommendationsBySKU(1234,'trendingViewed','(property=someValue)',[page:2])
-        then: "an ApiResponse object is returned"
+        then:
             response instanceof ApiResponse
     }
 }

@@ -8,29 +8,29 @@ import spock.lang.Specification
 class ApiConnectorSpec extends Specification {
 
     def "Constructor with null/empty baseUrl will fail"() {
-        when: "creating with null/empty baseUrl"
+        when:
             new ApiConnector(baseUrl)
-        then: "creation fails with exception"
+        then:
             thrown IllegalArgumentException
         where:
             baseUrl << [null, '', '  ']
     }
 
-    def "Constructor with invalid Url"() {
-        setup: "Creating with a valid  "
+    def "Constructor with invalid Url fails on doGet"() {
+        setup:
             def apic =  new ApiConnector('notAnUrl')
-        when: "trying to get any path from url"
+        when:
             apic.doGet('',[:])
-        then: "throws exception"
+        then:
             thrown IllegalStateException
     }
 
     def "Creating an object with valid URL"() {
-        setup: "Creating with a valid URL"
+        setup:
             def apic =  new ApiConnector(ClientConfiguration.baseUrl)
-        when: "trying to get any path from url"
+        when:
             def response = apic.doGet('',[:])
-        then: "returns a valid ApiResponse object"
+        then:
             response instanceof ApiResponse
     }
 }
