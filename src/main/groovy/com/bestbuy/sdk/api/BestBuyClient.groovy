@@ -1,6 +1,7 @@
 package com.bestbuy.sdk.api
 
 import groovy.util.logging.Log4j
+import groovyx.net.http.HttpResponseDecorator
 
 /**
  * BestBuy API Client, gives access to all the operations available in API definition
@@ -24,6 +25,7 @@ class BestBuyClient {
      */
     BestBuyClient(String apiKey, String baseUrl = ClientConfiguration.baseUrl, String betaBaseUrl = ClientConfiguration.baseBetaUrl) {
         if (apiKey==null || apiKey.trim().size()==0) {
+            // Todo correct message
             throw new IllegalArgumentException("Default Constructor called with no API KEY set in environment variable: $apiKey")
         }
         API_KEY = apiKey
@@ -45,40 +47,40 @@ class BestBuyClient {
      * Get product list from API
      * @param query (Optional) a product query to be added to request
      * @param params (Optional)
-     * @returns ApiResponse object with status & json data (if any)
+     * @returns HttpResponseDecorator object with status & json data (if any)
      */
-    ApiResponse getProducts(String query = null, Map params = [:]) {
-        apiConnector.doGet("products${query?:''}", getDefaultParameters(params))
+    HttpResponseDecorator getProducts(String query = null, Map params = [:]) {
+        apiConnector.doGet("products${query?:''}", addDefaultParameters(params))
     }
 
     /**
      * Get Category list from API
      * @param query  category query to be added to request.
      * @param params Parameters to be added to request.
-     * @return ApiResponse object with status & json data (if any)
+     * @return HttpResponseDecorator object with status & json data (if any)
      */
-    ApiResponse getCategories(String query = null, Map params = [:]) {
-        apiConnector.doGet("categories${query?:''}", getDefaultParameters(params))
+    HttpResponseDecorator getCategories(String query = null, Map params = [:]) {
+        apiConnector.doGet("categories${query?:''}", addDefaultParameters(params))
     }
 
     /**
      * Get Reviews list from API
      * @param query to be added to request.
      * @param params Parameters to be added to request.
-     * @return ApiResponse object with status & json data (if any)
+     * @return HttpResponseDecorator object with status & json data (if any)
      */
-    ApiResponse getReviews(String query = null, Map params = [:]) {
-        apiConnector.doGet("reviews${query?:''}", getDefaultParameters(params))
+    HttpResponseDecorator getReviews(String query = null, Map params = [:]) {
+        apiConnector.doGet("reviews${query?:''}", addDefaultParameters(params))
     }
 
     /**
      * Get Stores list from API
      * @param query to be added to request.
      * @param params Parameters to be added to request.
-     * @return ApiResponse object with status & json data (if any)
+     * @return HttpResponseDecorator object with status & json data (if any)
      */
-    ApiResponse getStores(String query = null, Map params = [:]) {
-        apiConnector.doGet("stores${query?:''}", getDefaultParameters(params))
+    HttpResponseDecorator getStores(String query = null, Map params = [:]) {
+        apiConnector.doGet("stores${query?:''}", addDefaultParameters(params))
     }
 
     /**
@@ -86,20 +88,20 @@ class BestBuyClient {
      * @param storesQuery Stores query to be added to request.
      * @param productsQuery Products query to be added to request.
      * @param params Parameters to be added to request.
-     * @return ApiResponse object with status & json data (if any)
+     * @return HttpResponseDecorator object with status & json data (if any)
      */
-    ApiResponse getStores(String storesQuery, String productsQuery, Map params = [:]) {
-        apiConnector.doGet("stores${storesQuery?:''}+products${productsQuery?:''}", getDefaultParameters(params))
+    HttpResponseDecorator getStores(String storesQuery, String productsQuery, Map params = [:]) {
+        apiConnector.doGet("stores${storesQuery?:''}+products${productsQuery?:''}", addDefaultParameters(params))
     }
 
     /**
      * Get Open Box list from API
      * @param query to be added to request.
      * @param params Parameters to be added to request.
-     * @return ApiResponse object with status & json data (if any)
+     * @return HttpResponseDecorator object with status & json data (if any)
      */
-    ApiResponse getOpenBoxProducts(String query = null, Map params = [:]) {
-        betaApiConnector.doGet("products/openBox${query?:''}", getDefaultParameters(params))
+    HttpResponseDecorator getOpenBoxProducts(String query = null, Map params = [:]) {
+        betaApiConnector.doGet("products/openBox${query?:''}", addDefaultParameters(params))
     }
 
     /**
@@ -107,10 +109,10 @@ class BestBuyClient {
      * @param endpoint Recommendations endpoint to be requested (Check BBY documentation)
      * @param query to be added to request.
      * @param params Parameters to be added to request.
-     * @return ApiResponse object with status & json data (if any)
+     * @return HttpResponseDecorator object with status & json data (if any)
      */
-    ApiResponse getRecommendations(String endpoint, String query = null, Map params = [:]) {
-        betaApiConnector.doGet("products/${endpoint}${query?:''}", getDefaultParameters(params))
+    HttpResponseDecorator getRecommendations(String endpoint, String query = null, Map params = [:]) {
+        betaApiConnector.doGet("products/${endpoint}${query?:''}", addDefaultParameters(params))
     }
 
     /**
@@ -119,13 +121,13 @@ class BestBuyClient {
      * @param endpoint Recommendations endpoint to be requested (Check BBY documentation)
      * @param query to be added to request.
      * @param params Parameters to be added to request.
-     * @return ApiResponse object with status & json data (if any)
+     * @return HttpResponseDecorator object with status & json data (if any)
      */
-    ApiResponse getRecommendationsBySKU(long sku, String endpoint, String query = null, Map params = [:]) {
-        betaApiConnector.doGet("products/${sku}/${endpoint}${query?:''}", getDefaultParameters(params))
+    HttpResponseDecorator getRecommendationsBySKU(long sku, String endpoint, String query = null, Map params = [:]) {
+        betaApiConnector.doGet("products/${sku}/${endpoint}${query?:''}", addDefaultParameters(params))
     }
 
-    private Map getDefaultParameters(Map params) {
+    private Map addDefaultParameters(Map params) {
         [apiKey: API_KEY, format: 'json'] << ((params?.keySet()?.size()>0)?params:[:])
     }
 }

@@ -1,8 +1,9 @@
 package com.bestbuy.test
 
 import com.bestbuy.sdk.api.ApiConnector
-import com.bestbuy.sdk.api.ApiResponse
 import com.bestbuy.sdk.api.ClientConfiguration
+import groovyx.net.http.HttpResponseDecorator
+import groovyx.net.http.HttpResponseException
 import spock.lang.Specification
 
 class ApiConnectorSpec extends Specification {
@@ -26,11 +27,10 @@ class ApiConnectorSpec extends Specification {
     }
 
     def "Creating an object with valid URL"() {
-        setup:
-            def apic =  new ApiConnector(ClientConfiguration.baseUrl)
         when:
+            def apic =  new ApiConnector(ClientConfiguration.baseUrl)
             def response = apic.doGet('',[:])
-        then:
-            response instanceof ApiResponse
+        then: " throws an HttpResponseException as no valid API KEY is set"
+            thrown HttpResponseException
     }
 }

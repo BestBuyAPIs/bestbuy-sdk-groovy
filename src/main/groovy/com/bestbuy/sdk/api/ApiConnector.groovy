@@ -37,9 +37,9 @@ class ApiConnector {
      *
      * @param path API path (endpoint) to be concatenated with base URL
      * @param params URL Parameters map to be added to GET request
-     * @returns {@code HttpResponseDecorator} if attempt to reach endpoint can be processed(and a HTTP response is received), if unexpected exception happens event is logged and same exception is thrown
+     * @returns {@link HttpResponseDecorator} if attempt to reach endpoint can be processed(and a HTTP response is received), if unexpected exception happens event is logged and same exception is thrown
      */
-    ApiResponse doGet(String path, Map params) {
+    HttpResponseDecorator doGet(String path, Map params) {
         try {
             log.debug "GET ${restClient.uri}$path with params: $params"
             def response = restClient.get(
@@ -47,11 +47,10 @@ class ApiConnector {
                     query: params
             )
             log.debug "Status: ${response.status}"
-            return new ApiResponse(response)
+            return response
         } catch (groovyx.net.http.HttpResponseException ex) {
-            // HttpResponseExceptions are returned for 4xx and 5xx status, and ApiResponse is returned
-            log.debug "Error Status: $ex.response.status"
-            return new ApiResponse(ex.response)
+            // HttpResponseExceptions are returned for 4xx and 5xx statuses
+            throw ex
         } catch (Exception e) {
             log.error "RESTClient returned unexpected exception: ${e} $e.message"
             throw e
