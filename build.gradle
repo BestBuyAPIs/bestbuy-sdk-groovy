@@ -17,7 +17,8 @@ configurations {
 dependencies {
     compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    compile 'log4j:log4j:1.2.17'
+    // Using sfl4j allows us to replace different loggers later, if desired
+    compile 'org.slf4j:slf4j-api:1.7.13'
 
     // Test Libraries
     testCompile "junit:junit:4.11"

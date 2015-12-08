@@ -1,6 +1,6 @@
 package com.bestbuy.sdk.api
 
-import groovy.util.logging.Log4j
+import groovy.util.logging.Slf4j
 import groovyx.net.http.HttpResponseDecorator
 import groovyx.net.http.RESTClient
 
@@ -9,7 +9,7 @@ import groovyx.net.http.RESTClient
  * Implements and handles connection with API, providing GET operation
  * <br>Uses {@code @Log4j} to log events
  */
-@Log4j
+@Slf4j
 class ApiConnector {
 
     private RESTClient restClient

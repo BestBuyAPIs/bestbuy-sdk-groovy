@@ -1,6 +1,6 @@
 package com.bestbuy.sdk.api
 
-import groovy.util.logging.Log4j
+import groovy.util.logging.Slf4j
 import groovyx.net.http.HttpResponseDecorator
 
 /**
@@ -8,7 +8,7 @@ import groovyx.net.http.HttpResponseDecorator
  * <br> You can find complete Best Buy API documentation <a href="https://developer.bestbuy.com/documentation" onclick="window.open('https://developer.bestbuy.com/documentation');return false;">here</a>
  * <br> Uses {@code @Log4j} to log events
  */
-@Log4j
+@Slf4j
 class BestBuyClient {
 
     String API_KEY
