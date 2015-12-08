@@ -25,8 +25,7 @@ class BestBuyClient {
      */
     BestBuyClient(String apiKey, String baseUrl = ClientConfiguration.baseUrl, String betaBaseUrl = ClientConfiguration.baseBetaUrl) {
         if (apiKey==null || apiKey.trim().size()==0) {
-            // Todo correct message
-            throw new IllegalArgumentException("Default Constructor called with no API KEY set in environment variable: $apiKey")
+            throw new IllegalArgumentException("Constructor called with no API KEY, either provided or set in environment variable.")
         }
         API_KEY = apiKey
         apiConnector = new ApiConnector(baseUrl)
