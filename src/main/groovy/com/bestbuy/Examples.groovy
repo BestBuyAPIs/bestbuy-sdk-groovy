@@ -1,6 +1,7 @@
 package com.bestbuy.sdk
 
 import com.bestbuy.sdk.api.BestBuyClient
+import groovyx.net.http.HttpResponseException
 
 /**
  * BestBuyClient class examples for all methods, with queries examples.
@@ -16,13 +17,54 @@ class Examples {
             bby = new BestBuyClient()
         }
 
-        productExamples(bby)
-        categoriesExamples(bby)
-        reviewsExamples(bby)
-        storesExamples(bby)
-        storeAvailabilityExamples(bby)
-        openBoxExamples(bby)
-        recommendationExamples(bby)
+        try {
+            productExamples(bby)
+        } catch (HttpResponseException ex) {
+            // This may happen for several reasons, most common: 403 for API_KEY not present, but can also be 403 because of API_KEY developer limit (5 calls per second)
+            println "An exception occurred, status=$ex.statusCode, message=$ex.message"
+        }
+
+        try {
+            categoriesExamples(bby)
+        } catch (HttpResponseException ex) {
+            // This may happen for several reasons, most common: 403 for API_KEY not present, but can also be 403 because of API_KEY developer limit (5 calls per second)
+            println "An exception occurred, status=$ex.statusCode, message=$ex.message"
+        }
+
+        try {
+            reviewsExamples(bby)
+        } catch (HttpResponseException ex) {
+            // This may happen for several reasons, most common: 403 for API_KEY not present, but can also be 403 because of API_KEY developer limit (5 calls per second)
+            println "An exception occurred, status=$ex.statusCode, message=$ex.message"
+        }
+
+        try {
+            storesExamples(bby)
+        } catch (HttpResponseException ex) {
+            // This may happen for several reasons, most common: 403 for API_KEY not present, but can also be 403 because of API_KEY developer limit (5 calls per second)
+            println "An exception occurred, status=$ex.statusCode, message=$ex.message"
+        }
+
+        try {
+            storeAvailabilityExamples(bby)
+        } catch (HttpResponseException ex) {
+            // This may happen for several reasons, most common: 403 for API_KEY not present, but can also be 403 because of API_KEY developer limit (5 calls per second)
+            println "An exception occurred, status=$ex.statusCode, message=$ex.message"
+        }
+
+        try {
+            openBoxExamples(bby)
+        } catch (HttpResponseException ex) {
+            // This may happen for several reasons, most common: 403 for API_KEY not present, but can also be 403 because of API_KEY developer limit (5 calls per second)
+            println "An exception occurred, status=$ex.statusCode, message=$ex.message"
+        }
+
+        try {
+            recommendationExamples(bby)
+        } catch (HttpResponseException ex) {
+            // This may happen for several reasons, most common: 403 for API_KEY not present, but can also be 403 because of API_KEY developer limit (5 calls per second)
+            println "An exception occurred, status=$ex.statusCode, message=$ex.message"
+        }
     }
 
     static private productExamples(BestBuyClient bby) {
